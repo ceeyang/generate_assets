@@ -1,7 +1,15 @@
 name: generate_assets
-description: CLI tool to generate Dart asset constants from Flutter's pubspec.yaml, with unused asset detection and batch deletion.
+description: >-
+  A CLI tool that generates Dart asset constants from your Flutter project's
+  pubspec.yaml. Supports unused asset detection and batch deletion of unused
+  files including 2x/3x resolution variants.
 version: 0.1.0
 repository: https://github.com/ceeyang/generate_assets
+topics:
+  - flutter
+  - assets
+  - codegen
+  - cli
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
