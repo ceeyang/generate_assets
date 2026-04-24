@@ -1,3 +1,8 @@
+## 0.3.0
+
+- Add `strip_prefix` config option in `pubspec.yaml` under `flutter_generate_assets`
+- Supports single string or list of prefixes; first match wins; default `assets/`
+
 ## 0.2.0
 
 - Unify generated file header with links to both VSCode extension and CLI tool

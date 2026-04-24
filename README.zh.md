@@ -12,7 +12,7 @@
 
 ```yaml
 dev_dependencies:
-  generate_assets: ^0.2.0
+  generate_assets: ^0.3.0
 ```
 
 然后执行：
@@ -42,12 +42,31 @@ dart run generate_assets delete-unused
 flutter_generate_assets:
   output: lib/common/assets.dart   # 默认：lib/generated/assets.dart
   class_name: Assets               # 默认：Assets
+  strip_prefix: assets/            # 默认：assets/ — 生成变量名前剥离此前缀
 
 flutter:
   assets:
     - assets/images/
     - assets/icons/
 ```
+
+### `strip_prefix`
+
+控制生成 camelCase 变量名时剥离的路径前缀。
+
+```yaml
+# 单个前缀（字符串）
+flutter_generate_assets:
+  strip_prefix: assets/
+
+# 多个前缀（列表）— 匹配第一个
+flutter_generate_assets:
+  strip_prefix:
+    - assets/
+    - images/
+```
+
+示例：配置 `strip_prefix: assets/` 后，路径 `assets/images/logo.png` 生成变量名 `imagesLogo`，而非 `assetsImagesLogo`。
 
 ## 生成结果示例
 

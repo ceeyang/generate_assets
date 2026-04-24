@@ -1,7 +1,16 @@
-String toVariableName(String filePath, {bool includeExt = false}) {
-  var s = filePath.startsWith('assets/')
-      ? filePath.substring('assets/'.length)
-      : filePath;
+String toVariableName(
+  String filePath, {
+  bool includeExt = false,
+  List<String> stripPrefixes = const ['assets/'],
+}) {
+  // Strip the first matching prefix
+  var s = filePath;
+  for (final prefix in stripPrefixes) {
+    if (filePath.startsWith(prefix)) {
+      s = filePath.substring(prefix.length);
+      break;
+    }
+  }
 
   final extMatch = RegExp(r'\.([^/.]+)$').firstMatch(s);
   final ext = extMatch?.group(1) ?? '';
@@ -24,13 +33,17 @@ String toVariableName(String filePath, {bool includeExt = false}) {
   return RegExp(r'^\d').hasMatch(camel) ? 'a$camel' : camel;
 }
 
-String generateDartCode(String className, List<String> assets) {
+String generateDartCode(
+  String className,
+  List<String> assets, {
+  List<String> stripPrefixes = const ['assets/'],
+}) {
   final unique = assets.toSet().toList();
 
   // First pass: detect base-name collisions
   final baseCounts = <String, int>{};
   for (final path in unique) {
-    final base = toVariableName(path, includeExt: false);
+    final base = toVariableName(path, includeExt: false, stripPrefixes: stripPrefixes);
     baseCounts[base] = (baseCounts[base] ?? 0) + 1;
   }
 
@@ -49,9 +62,9 @@ String generateDartCode(String className, List<String> assets) {
   ];
 
   for (final assetPath in unique) {
-    final base = toVariableName(assetPath, includeExt: false);
+    final base = toVariableName(assetPath, includeExt: false, stripPrefixes: stripPrefixes);
     final useExt = (baseCounts[base] ?? 1) > 1;
-    var varName = toVariableName(assetPath, includeExt: useExt);
+    var varName = toVariableName(assetPath, includeExt: useExt, stripPrefixes: stripPrefixes);
 
     if (seen.containsKey(varName)) {
       var count = seen[varName]! + 1;

@@ -12,7 +12,7 @@ Add to `dev_dependencies` in your Flutter project:
 
 ```yaml
 dev_dependencies:
-  generate_assets: ^0.2.0
+  generate_assets: ^0.3.0
 ```
 
 Then run:
@@ -42,12 +42,31 @@ Add a `flutter_generate_assets` section to the **root** of your `pubspec.yaml`:
 flutter_generate_assets:
   output: lib/common/assets.dart   # default: lib/generated/assets.dart
   class_name: Assets               # default: Assets
+  strip_prefix: assets/            # default: assets/ — strip this prefix before naming
 
 flutter:
   assets:
     - assets/images/
     - assets/icons/
 ```
+
+### `strip_prefix`
+
+Controls which path prefix is removed before generating camelCase variable names.
+
+```yaml
+# Single prefix (string)
+flutter_generate_assets:
+  strip_prefix: assets/
+
+# Multiple prefixes (list) — first match wins
+flutter_generate_assets:
+  strip_prefix:
+    - assets/
+    - images/
+```
+
+Example: with `strip_prefix: assets/`, the path `assets/images/logo.png` becomes `imagesLogo` instead of `assetsImagesLogo`.
 
 ## Generated Output
 

@@ -25,7 +25,7 @@ void main(List<String> args) {
 void _generate(String root) {
   final config = readPubspec(root);
   final assets = scanAssets(root, config.assetPaths);
-  final code = generateDartCode(config.className, assets);
+  final code = generateDartCode(config.className, assets, stripPrefixes: config.stripPrefixes);
 
   final outPath = p.join(root, config.output);
   final outDir = Directory(p.dirname(outPath));
