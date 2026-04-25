@@ -1,3 +1,7 @@
+/// Converts [filePath] to a lowerCamelCase Dart variable name.
+///
+/// The first matching prefix in [stripPrefixes] is removed before conversion.
+/// When [includeExt] is true, the file extension is appended as a suffix.
 String toVariableName(
   String filePath, {
   bool includeExt = false,
@@ -33,6 +37,10 @@ String toVariableName(
   return RegExp(r'^\d').hasMatch(camel) ? 'a$camel' : camel;
 }
 
+/// Generates the full Dart source for an asset constants class.
+///
+/// [className] is the name of the generated class. [assets] is the list of
+/// asset paths. [stripPrefixes] controls which prefix is removed before naming.
 String generateDartCode(
   String className,
   List<String> assets, {

@@ -7,6 +7,10 @@ const _ignoredFiles = {'Thumbs.db', 'desktop.ini', 'ehthumbs.db'};
 bool _isIgnored(String name) =>
     name.startsWith('.') || _ignoredFiles.contains(name);
 
+/// Scans [assetPaths] (relative to [workspaceRoot]) and returns all asset files.
+///
+/// Directories are expanded recursively. Resolution variant directories
+/// (`2x`, `3x`, `1.5x`) and hidden files are ignored automatically.
 List<String> scanAssets(String workspaceRoot, List<String> assetPaths) {
   final results = <String>{};
 

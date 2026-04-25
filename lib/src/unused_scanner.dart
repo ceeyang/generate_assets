@@ -3,11 +3,18 @@ import 'package:path/path.dart' as p;
 
 final _resolutionDirRe = RegExp(r'^\d+(?:\.\d+)?x$');
 
+/// An asset constant that is not referenced anywhere in `lib/`.
 class UnusedEntry {
+  /// The original asset path (e.g. `assets/images/logo.png`).
   final String assetPath;
+
+  /// The generated Dart variable name (e.g. `imagesLogo`).
   final String varName;
+
+  /// Zero-based line number in the generated file where this constant appears.
   final int line;
 
+  /// Creates an [UnusedEntry].
   const UnusedEntry({
     required this.assetPath,
     required this.varName,
@@ -15,6 +22,8 @@ class UnusedEntry {
   });
 }
 
+/// Scans `lib/` Dart files and returns constants in [generatedFilePath] that
+/// are not referenced by string literal or `ClassName.varName` access.
 List<UnusedEntry> findUnused(
   String workspaceRoot,
   String className,
@@ -58,6 +67,7 @@ List<UnusedEntry> findUnused(
   }).toList();
 }
 
+/// Returns sibling resolution-variant paths (`2x/`, `3x/`) for [assetPath].
 List<String> findResolutionVariants(
     String workspaceRoot, String assetPath) {
   final absAsset = p.join(workspaceRoot, assetPath);

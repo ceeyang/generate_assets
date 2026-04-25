@@ -1,3 +1,9 @@
+## 0.3.1
+
+- Shorten package description to satisfy pub.dev scoring
+- Add dartdoc comments to all public API symbols
+- Add `example/example.dart` to satisfy pub.dev example requirement
+
 ## 0.3.0
 
 - Add `strip_prefix` config option in `pubspec.yaml` under `flutter_generate_assets`
